@@ -1,9 +1,22 @@
 package com.cg.finalproject.beans;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+@Entity
 public class Product {
-
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int productId;
 	private String productName;
 	private String productDesc;
@@ -11,20 +24,49 @@ public class Product {
 	private String productBannerURL;
 	private double productPrice;
 	private int productQuantityAvailable;
-	private Review review;//one to many
+	@OneToMany(mappedBy="product",cascade=CascadeType.ALL)
+	private List<Review> review = new ArrayList<Review>();// one to many
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="discountId")
 	private Discount discount;//one to one
 	private long productViews;
 	private long productTimesBought;
 	private boolean productStatus;
 	private Date deliveryDate;
+	@ManyToOne
+	@JoinColumn(name="wishlistId")
+	private Wishlist wishlist;
+	@ManyToOne
+	@JoinColumn(name="merchantId")
+	private Merchant merchant;
 	private Date productAddedDate;
 	private String brand;
 	private Date productRemovedDate;
-	public int getProductId() {
-		return productId;
+	@ManyToOne
+	@JoinColumn(name="orderId")
+	private Orders order;
+	@ManyToOne
+	@JoinColumn(name="inventoryId")
+	private Inventory inventory;
+	
+	
+	public Merchant getMerchant() {
+		return merchant;
 	}
-	public void setProductId(int productId) {
-		this.productId = productId;
+	public void setMerchant(Merchant merchant) {
+		this.merchant = merchant;
+	}
+	public Orders getOrder() {
+		return order;
+	}
+	public void setOrder(Orders order) {
+		this.order = order;
+	}
+	public Inventory getInventory() {
+		return inventory;
+	}
+	public void setInventory(Inventory inventory) {
+		this.inventory = inventory;
 	}
 	public String getProductName() {
 		return productName;
@@ -37,6 +79,13 @@ public class Product {
 	}
 	public void setProductDesc(String productDesc) {
 		this.productDesc = productDesc;
+	}
+	
+	public Wishlist getWishlist() {
+		return wishlist;
+	}
+	public void setWishlist(Wishlist wishlist) {
+		this.wishlist = wishlist;
 	}
 	public String getProductImageURL() {
 		return productImageURL;
@@ -62,10 +111,11 @@ public class Product {
 	public void setProductQuantityAvailable(int productQuantityAvailable) {
 		this.productQuantityAvailable = productQuantityAvailable;
 	}
-	public Review getReview() {
+	
+	public List<Review> getReview() {
 		return review;
 	}
-	public void setReview(Review review) {
+	public void setReview(List<Review> review) {
 		this.review = review;
 	}
 	public Discount getDiscount() {
