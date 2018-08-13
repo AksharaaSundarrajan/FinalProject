@@ -1,28 +1,69 @@
 package com.cg.finalproject.beans;
 
-public class Admin {
+import java.util.ArrayList;
+import java.util.List;
 
-	private Merchant merchant;// one to many
-	private Coupon coupon;// one to many
-	private Discount discount;// one to many
-	public Merchant getMerchant() {
-		return merchant;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+@Entity
+public class Admin {
+	@Id
+//	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int adminId;
+	@OneToMany(mappedBy="admin",cascade=CascadeType.ALL)
+	private List<Merchant> merchants = new ArrayList<Merchant>();// one to many
+	@OneToMany(mappedBy="admin",cascade=CascadeType.ALL)
+	private List<Coupon> coupons = new ArrayList<Coupon>();// one to many
+	@OneToMany(mappedBy="admin",cascade=CascadeType.ALL)
+	private List<Discount> discounts = new ArrayList<Discount>();// one to many
+	private String username;
+	private String password;
+	@OneToMany(mappedBy="admin",cascade=CascadeType.ALL)
+	private List<Inventory> inventories = new ArrayList<Inventory>();
+	
+	
+	public List<Inventory> getInventories() {
+		return inventories;
 	}
-	public void setMerchant(Merchant merchant) {
-		this.merchant = merchant;
+	public void setInventories(List<Inventory> inventories) {
+		this.inventories = inventories;
 	}
-	public Coupon getCoupon() {
-		return coupon;
+	public String getUsername() {
+		return username;
 	}
-	public void setCoupon(Coupon coupon) {
-		this.coupon = coupon;
+	public void setUsername(String username) {
+		this.username = username;
 	}
-	public Discount getDiscount() {
-		return discount;
+	public String getPassword() {
+		return password;
 	}
-	public void setDiscount(Discount discount) {
-		this.discount = discount;
+	public void setPassword(String password) {
+		this.password = password;
 	}
+	public List<Merchant> getMerchants() {
+		return merchants;
+	}
+	public void setMerchants(List<Merchant> merchants) {
+		this.merchants = merchants;
+	}
+	public List<Coupon> getCoupons() {
+		return coupons;
+	}
+	public void setCoupons(List<Coupon> coupons) {
+		this.coupons = coupons;
+	}
+	public List<Discount> getDiscounts() {
+		return discounts;
+	}
+	public void setDiscounts(List<Discount> discounts) {
+		this.discounts = discounts;
+	}
+	
 	
 	
 }
