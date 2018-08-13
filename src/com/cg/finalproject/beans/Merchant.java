@@ -1,16 +1,55 @@
 package com.cg.finalproject.beans;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+@Entity
 public class Merchant {
-
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int merchantId;
 	private boolean isThirdPartyMerchant;
-	private Product product;
-	private Discount discount;
-	private Coupon coupon;
+	@OneToMany(mappedBy="merchant",cascade=CascadeType.ALL)
+	private List<Product> products = new ArrayList<Product>();
 	private Date addMerchantDate;
+	@ManyToOne
+	@JoinColumn(name="merchantId")
+	private Merchant merchant;
+//	private String username;
+	private String password;
+	private String email;
+	private String phoneNumber;
+	@ManyToOne
+	@JoinColumn(name="orderId")
+	private Orders order;
 	
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	public int getMerchantId() {
 		return merchantId;
 	}
@@ -23,23 +62,18 @@ public class Merchant {
 	public void setThirdPartyMerchant(boolean isThirdPartyMerchant) {
 		this.isThirdPartyMerchant = isThirdPartyMerchant;
 	}
-	public Product getProduct() {
-		return product;
+	
+	public List<Product> getProducts() {
+		return products;
 	}
-	public void setProduct(Product product) {
-		this.product = product;
+	public void setProducts(List<Product> products) {
+		this.products = products;
 	}
-	public Discount getDiscount() {
-		return discount;
+	public Orders getOrder() {
+		return order;
 	}
-	public void setDiscount(Discount discount) {
-		this.discount = discount;
-	}
-	public Coupon getCoupon() {
-		return coupon;
-	}
-	public void setCoupon(Coupon coupon) {
-		this.coupon = coupon;
+	public void setOrder(Orders order) {
+		this.order = order;
 	}
 	public Date getAddMerchantDate() {
 		return addMerchantDate;
