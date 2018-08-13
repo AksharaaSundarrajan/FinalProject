@@ -1,14 +1,29 @@
 package com.cg.finalproject.beans;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+@Entity
 public class Review {
-
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int reviewId;
-	private Product product;//one to one
+	@OneToMany
+	@JoinColumn(name="productId")
+	private Product product;//many to many ?????????
 	private String comments;
-	private Customer customer;//one to one
+	@ManyToOne
+	@JoinColumn(name="phoneNumber")
+	private Customer customer;//many to one
 	private int productRating;
+	/*@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="merchantId")
 	private Merchant merchant;//one to one
-	public int getReviewId() {
+*/	public int getReviewId() {
 		return reviewId;
 	}
 	public void setReviewId(int reviewId) {
@@ -38,12 +53,12 @@ public class Review {
 	public void setProductRating(int productRating) {
 		this.productRating = productRating;
 	}
-	public Merchant getMerchant() {
+	/*public Merchant getMerchant() {
 		return merchant;
 	}
 	public void setMerchant(Merchant merchant) {
 		this.merchant = merchant;
-	}
+	}*/
 	
 	
 	
