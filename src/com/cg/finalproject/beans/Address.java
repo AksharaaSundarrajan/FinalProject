@@ -1,10 +1,16 @@
 package com.cg.finalproject.beans;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class Address {
-private Customer customer;
+@Id
+@GeneratedValue(strategy=GenerationType.AUTO)
+private int addressId;
+private Customer customer;//one to one
 private String country;
 private String state;
 private String city;
