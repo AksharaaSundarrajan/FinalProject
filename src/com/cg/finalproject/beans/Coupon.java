@@ -2,19 +2,30 @@ package com.cg.finalproject.beans;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Coupon {
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int couponId;
 	private Date couponStartDate;
 	private Date couponEndDate;
+	/*@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="productId")
 	private int productId;//one to one
-	private String couponName;//??
+*/	private String couponName;
 	private double couponDiscountValue;
-	
+	@ManyToOne
+	@JoinColumn(name="adminId")
+	private Admin admin;// many to one
 	public int getCouponId() {
 		return couponId;
 	}
@@ -33,12 +44,12 @@ public class Coupon {
 	public void setCouponEndDate(Date couponEndDate) {
 		this.couponEndDate = couponEndDate;
 	}
-	public int getProductId() {
+	/*public int getProductId() {
 		return productId;
 	}
 	public void setProductId(int productId) {
 		this.productId = productId;
-	}
+	}*/
 	public String getCouponName() {
 		return couponName;
 	}
