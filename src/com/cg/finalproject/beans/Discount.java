@@ -2,18 +2,29 @@ package com.cg.finalproject.beans;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 @Entity
 public class Discount {
 	
 private Date startDateOfDiscount;
 private Date endDateOfDiscount;
+@OneToOne(cascade=CascadeType.ALL)
+@JoinColumn(name="productId")
 private Product product;//one to one
 @Id
+@GeneratedValue(strategy=GenerationType.AUTO)
 private int discountId;
 private double percentDiscount;
-private Merchant merchant;// ??
+@ManyToOne
+@JoinColumn(name="adminId")
+private Admin admin;// many to one
 
 public Product getProduct() {
 	return product;
@@ -45,13 +56,12 @@ public double getPercentDiscount() {
 public void setPercentDiscount(double percentDiscount) {
 	this.percentDiscount = percentDiscount;
 }
-public Merchant getMerchant() {
-	return merchant;
+public Admin getAdmin() {
+	return admin;
 }
-public void setMerchant(Merchant merchant) {
-	this.merchant = merchant;
+public void setAdmin(Admin admin) {
+	this.admin = admin;
 }
-
 
 
 }
